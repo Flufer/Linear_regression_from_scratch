@@ -14,12 +14,10 @@
 
 Реализована **линейная регрессия для одного признака**:
 
-\[
-y = w \cdot x + b
-\]
+y = w * x + b  
 
 Обучение производится с помощью **градиентного спуска** по MSE.
-    
+
 ---
 
 ## ⚙️ Реализованный функционал
@@ -37,26 +35,27 @@ y = w \cdot x + b
 ---
 
 ## 🗂 Структура проекта
-Linear_regression_from_scratch/
-│
-├── src/
-│ ├── linear_regression.py # Реализация модели
-│ └── metrics.py # MSE и R2
-│
-├── notebooks/
-│ └── exploration.ipynb # EDA, обучение, визуализация
-│
-├── data/
-│ └── experience_salary.csv # Датасет
-│
-├── README.md
+Linear_regression_from_scratch/  
+│  
+├── src/  
+│ ├── __init__.py  
+│ ├── linear_regression.py # Реализация модели  
+│ └── metrics.py # MSE и R2  
+│  
+├── notebooks/  
+│ └── exploration.ipynb # EDA, обучение, визуализация  
+│  
+├── data/  
+│ └── experience_salary.csv  
+│  
+├── README.md  
 └── .gitignore
 ---
 
 ## 📊 Датасет
 
 Используется простой датасет:
-- `Years of Experience` → признак
+- `Months of Experience` → признак
 - `Salary` → целевая переменная
 
 Источник: Kaggle (Experience Salary Dataset)
