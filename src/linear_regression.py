@@ -1,39 +1,56 @@
 class LinearRegression:
     """
-    Простейшая логистическая регрессия с градиентным спуском
+    Линейная регрессия с градиентным спуском
     """
 
-    def __init__(self, lr=0.01, n_iters=1000):
-        self.lr = lr
-        self.n_iters = n_iters
-        self.weight = None
-        self.bias = 0.0
+    def __init__(self, learning_rate=0.01, n_iterations=1000):
+        self.lr = learning_rate
+        self.n_iterations = n_iterations
+        self.w = 0  # вес
+        self.b = 0  # смещение
+        # self.loss_history = []
 
     def fit(self, X, y):
-        n_samples, n_features = len(X), len(X[0])
-        self.weight = [0.0] * n_features
-        self.bias = 0.0
+        """
+        Обучение модели
 
-        for _ in range(self.n_iters):
-            y_pred = self.predict(X)
-            # вычисляем градиент
-            dw = [0.0] * n_features
-            db = 0.0
-            for i in range(n_samples):
-                error = y_pred[i] - y[i]
-                for j in range(n_features):
-                    dw[j] += error * X[i][j]
-                dw += error
-            # обновляем веса
-            for j in range(n_features):
-                self.weight[j] -= self.lr * dw[j] / n_samples
-            self.bias -= self.lr * db / n_samples
+        Args:
+            X (list): Список признаков
+            y (list): Список целевых значений
+        """
+        n = len(X)
+
+        for iteration in range(self.n_iterations):
+            # Прямое распространение
+            y_pred = [self.w * x + self.b for x in X]
+
+            # Вычисление градиентов
+            dw = (-2 / n) * sum(X[i] * (y[i] - y_pred[i]) for i in range(n))
+            db = (-2 / n) * sum(y[i] - y_pred[i] for i in range(n))
+
+            # Обновление параметров
+            self.w -= self.lr * dw
+            self.b -= self.lr * db
+
+            # Сохранение ошибки
+            # loss = sum((y[i] - y_pred[i]) ** 2 for i in range(n)) / n
+            # self.loss_history.append(loss)
+
+        return self
 
     def predict(self, X):
-        y_pred = []
-        for i in X:
-            pred = sum(w * xi for w, xi in zip(self.weight, X)) + self.bias
-            y_pred.append(pred)
-        return y_pred
+        """
+        Предсказание
 
+        Args:
+            X (list или число): Признаки для предсказания
 
+        Returns:
+            list или число: Предсказанные значения
+        """
+        if isinstance(X, list):
+            return [self.w * x + self.b for x in X]
+        return self.w * X + self.b
+
+    def get_params(self):
+        return {'w': self.w, 'b': self.b}
