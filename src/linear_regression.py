@@ -54,3 +54,4 @@ class LinearRegression:
 
     def get_params(self):
         return {'w': self.w, 'b': self.b}
+    
